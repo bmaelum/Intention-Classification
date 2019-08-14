@@ -1,6 +1,6 @@
 # Intention Classification 
 ## Master of Science Dissertation 
-Project at the University of Bristol.
+Project at the University of Bristol. **Dissertation can be found [here](https://www.dropbox.com/s/4h1am0xqd3xizbv/MSc_Robotics_BjornarMaelum.pdf?dl=0).**
 
 This repo describes and demos how the computer vision project of Intention Classification works.
 
