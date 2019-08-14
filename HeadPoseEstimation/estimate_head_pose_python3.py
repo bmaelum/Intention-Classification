@@ -30,8 +30,10 @@ def get_face(detector, img_queue, box_queue):
         image = img_queue.get()
         print("HERE")
         print(image.shape)
+        print("YEA")
         box = detector.extract_cnn_facebox(image)
         box_queue.put(box)
+
 
 def calculateDirection(nosemarks):
     # print('Calculating direction...'
@@ -193,11 +195,11 @@ def headPoseEstimation():
             directionArray.append(headPoseDirection)
             #print(directionArray
             #print(len(directionArray)
-            print("To capture a movement press 'a' and perform a movement."
+            print("To capture a movement press 'a' and perform a movement.")
             #currentTime1 = time.time()
             if cv2.waitKey(5) == ord('a') and not classifyMoves:
                 classifyMoves = 1
-                print("Start classifying movement..."
+                print("Start classifying movement...")
                 timer = time.time()
                 currentTime = timer
                 previousTime1 = timer
