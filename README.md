@@ -10,3 +10,8 @@ Working project that can run on OS X.
 **Progress:**
 - [x] Head Pose Estimation working on Ubuntu 16.04 and Python 2.7
 - [ ] Head Pose Estimation working on Mac OS X and Python 3
+
+## Conceptual Design
+<p align="center">
+  <img width="400" src="https://github.com/bmaelum/Intention-Classification/blob/master/images/ConceptualDesign_v3.png">
+</p>
