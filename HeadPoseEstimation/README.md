@@ -2,6 +2,6 @@
 
 Activate virtual environment
 ```
-workon cv-py3
+conda activate cvEnv
 ```
 
