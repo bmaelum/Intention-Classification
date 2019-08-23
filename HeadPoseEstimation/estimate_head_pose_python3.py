@@ -91,6 +91,7 @@ def headPoseEstimation():
     #video_src = 'EWSN.avi'
     cam = cv2.VideoCapture(video_src)
     _, sample_frame = cam.read()
+    #print(sample_frame)
 
     # Introduce mark_detector to detect landmarks.
     mark_detector = MarkDetector()
