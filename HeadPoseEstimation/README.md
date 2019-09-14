@@ -5,6 +5,11 @@ Activate virtual environment
 conda activate cvEnv
 ```
 
+To run using video file:
+```
+ python3 estimate_head_pose_python3.py --video /path/to/video.mp4
+```
+
 ## Flowchart
 <p align="center">
   <img width="800" src="https://github.com/bmaelum/Intention-Classification/blob/master/HeadPoseEstimation/images/HeadPoseEstimation.png">
