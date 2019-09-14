@@ -1,0 +1,5 @@
+To only use one GPU:
+export CUDA_VISIBLE_DEVICES=0
+
+To see which GPUs are visible:
+echo $CUDA_VISIBLE_DEVICES$
