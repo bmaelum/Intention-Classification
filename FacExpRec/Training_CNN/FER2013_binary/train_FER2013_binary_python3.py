@@ -12,9 +12,9 @@ import sys
 img_width, img_height = 48, 48
 
 #top_model_weights_path = 'bottleneck_fc_model.h5'
-train_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/train'
-validation_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/validation'
-test_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/test'
+train_data_dir = '/Users/bjornar/Documents/Intention-Classification/FacExpRec/TrainingData/FER_data/BinaryClassification/train'
+validation_data_dir = '/Users/bjornar/Documents/Intention-Classification/FacExpRec/TrainingData/FER_data/BinaryClassification/validation'
+test_data_dir = '/Users/bjornar/Documents/Intention-Classification/FacExpRec/TrainingData/FER_data/BinaryClassification/test'
 
 batch_size = 128
 
@@ -545,13 +545,7 @@ def predFromImage(imageToPred, modelNm):
     #                                     exp_labels[true_index]),
     #                                     color=("green" if predict_index == true_index else "red"))
 ### ----------------- MAIN -------------------
-#epochs = 2000
-if sys.argv[3]:
-    epochs = int(sys.argv[3])
-else:
-    epochs = 2000
-print("Epochs: " + str(epochs))
-
+epochs = 2000
 redirectionDirectory = "/Users/bjornar/ML_models/FER/"
 foldername = "tf_keras_weights_" + sys.argv[2]
 weightModName = redirectionDirectory + foldername + "/" + foldername + ".hdf5"
