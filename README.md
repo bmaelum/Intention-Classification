@@ -2,6 +2,10 @@
 ## Master of Science Dissertation 
 Project at the University of Bristol. **Dissertation can be found [here](https://www.dropbox.com/s/4h1am0xqd3xizbv/MSc_Robotics_BjornarMaelum.pdf?dl=0).**
 
+Video of the experiment described in the dissertation can be seen **[here](https://www.youtube.com/watch?v=XPzJ-hhMpgM&feature=youtu.be)**.
+
+[![MSc Experiment video](https://img.youtube.com/vi/XPzJ-hhMpgM/0.jpg)](https://www.youtube.com/watch?v=XPzJ-hhMpgM)
+
 This repo describes and demos how the computer vision project of Intention Classification works.
 
 **Goal:**
