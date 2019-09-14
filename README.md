@@ -9,12 +9,16 @@ Video of the experiment described in the dissertation can be seen **[here](https
 This repo describes and demos how the computer vision project of Intention Classification works.
 
 **Goal:**
-Working project that can run on OS X. 
+Working Intention Classification that can run on OS X. 
 
 **Progress:**
 - [x] Head Pose Estimation working on Ubuntu 16.04 and Python 2.7
 - [x] Head Pose Estimation working on Mac OS X and Python 3 - video
 - [ ] Head Pose Estimation working on Mac OS X and Python 3 - webcam
+- [ ] Training intention classification model on Mac OS X and Python 3
+- [ ] Running intention classification on Mac OS X and Python 3
+- [ ] Running head pose estimation and intention classification on Mac OS X and Python 3
+
 
 ## Abstract
 The contribution of this research is a system enabling non-verbal human robot interaction
