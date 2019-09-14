@@ -5,6 +5,7 @@ detection. The facial landmark detection is done by a custom Convolutional
 Neural Network trained with TensorFlow. After that, head pose is estimated
 by solving a PnP problem.
 """
+from argparse import ArgumentParser
 from multiprocessing import Process, Queue
 
 import numpy as np
@@ -23,17 +24,20 @@ def mostCommon(lst):
 
 CNN_INPUT_SIZE = 128
 
+# Take arguments from user input.
+parser = ArgumentParser()
+parser.add_argument("--video", type=str, default=None,
+                    help="Video file to be processed.")
+parser.add_argument("--cam", type=int, default=None,
+                    help="The webcam index.")
+args = parser.parse_args()
 
 def get_face(detector, img_queue, box_queue):
     """Get face from image queue. This function is used for multiprocessing"""
     while True:
         image = img_queue.get()
-        print("HERE")
-        print(image.shape)
-        print("YEA")
         box = detector.extract_cnn_facebox(image)
         box_queue.put(box)
-
 
 def calculateDirection(nosemarks):
     # print('Calculating direction...'
@@ -87,15 +91,25 @@ def headPoseEstimation():
 
     """MAIN"""
     # Video source from webcam or video file.
-    video_src = 0
+    #video_src = 0
     #video_src = 'EWSN.avi'
-    cam = cv2.VideoCapture(video_src)
-    _, sample_frame = cam.read()
-    #print(sample_frame)
+    #cam = cv2.VideoCapture(video_src)
+    #_, sample_frame = cam.read()
+
+    # Video source from webcam or video file.
+    video_src = args.cam if args.cam is not None else args.video
+    if video_src is None:
+        print("Warning: video source not assigned, default webcam will be used.")
+        video_src = 0
+
+    cap = cv2.VideoCapture(video_src)
+    if video_src == 0:
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    _, sample_frame = cap.read()
 
     # Introduce mark_detector to detect landmarks.
     mark_detector = MarkDetector()
-
+    print("1")
     # Setup process and queues for multiprocessing.
     img_queue = Queue()
     box_queue = Queue()
@@ -103,12 +117,10 @@ def headPoseEstimation():
     box_process = Process(target=get_face, args=(
         mark_detector, img_queue, box_queue,))
     box_process.start()
-
+    print("2")
     # Introduce pose estimator to solve pose. Get one frame to setup the
     # estimator according to the image size.
     height, width = sample_frame.shape[:2]
-    print(height)
-    print(width)
     pose_estimator = PoseEstimator(img_size=(height, width))
 
     # Introduce scalar stabilizers for pose.
@@ -118,6 +130,7 @@ def headPoseEstimation():
         cov_process=0.1,
         cov_measure=0.1) for _ in range(6)]
 
+    print("3")
     noseMarks = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
     counter = 0
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -141,18 +154,21 @@ def headPoseEstimation():
 
     while True:
         # Read frame, crop it, flip it, suits your needs.
-        frame_got, frame = cam.read()
+        frame_got, frame = cap.read()
         if frame_got is False:
             break
-
-        print(frame.shape)
-
+        #print("4")
+        #print(frame.shape)
+        #print("5")
         # Crop it if frame is larger than expected.
         # frame = frame[0:480, 300:940]
 
         # If frame comes from webcam, flip it so it looks like a mirror.
-        if video_src == 0:
-            frame = cv2.flip(frame, 2)
+        #if video_src == 0:
+        #    print("6")
+        #    frame = cv2.flip(frame, 2)
+        #    cv2.imwrite("Preview.png", frame)
+        #    print("7")
 
         # Pose estimation by 3 steps:
         # 1. detect face;
@@ -161,12 +177,12 @@ def headPoseEstimation():
 
         # Feed frame to image queue.
         img_queue.put(frame)
-
+        #print("8")
         # Get face from box queue.
         facebox = box_queue.get()
         #print(type(facebox)
         #print(facebox
-
+        #print("9")
         if facebox is not None:
             # Detect landmarks from image of 128x128.
             face_img = frame[facebox[1]: facebox[3],
@@ -175,6 +191,7 @@ def headPoseEstimation():
             face_img = cv2.cvtColor(face_img, cv2.COLOR_BGR2RGB)
             print(face_img.shape)
             marks = mark_detector.detect_marks(face_img)
+
 
             # Convert the marks locations from local CNN to global image.
             marks *= (facebox[2] - facebox[0])
@@ -189,6 +206,7 @@ def headPoseEstimation():
 
             for i in range(9, 0, -1):
                 noseMarks[i] = noseMarks[i-1]
+
 
             # Get the direction of head movement
             headPoseDirection = calculateDirection(noseMarks)
