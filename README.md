@@ -9,7 +9,8 @@ Working project that can run on OS X.
 
 **Progress:**
 - [x] Head Pose Estimation working on Ubuntu 16.04 and Python 2.7
-- [ ] Head Pose Estimation working on Mac OS X and Python 3
+- [x] Head Pose Estimation working on Mac OS X and Python 3 - video
+- [ ] Head Pose Estimation working on Mac OS X and Python 3 - webcam
 
 ## Abstract
 The contribution of this research is a system enabling non-verbal human robot interaction
