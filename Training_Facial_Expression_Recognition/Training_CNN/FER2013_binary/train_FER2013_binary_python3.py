@@ -28,9 +28,9 @@ def generateModel():
         model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
         model.add(tf.keras.layers.Dropout(0.5))
 
-        # model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=2, padding="same", activation="relu"))
-        # model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
-        # model.add(tf.keras.layers.Dropout(0.5))
+        model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=2, padding="same", activation="relu"))
+        model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
+        model.add(tf.keras.layers.Dropout(0.5))
 
         model.add(tf.keras.layers.Flatten())
         model.add(tf.keras.layers.Dense(512, activation="relu"))
@@ -39,8 +39,8 @@ def generateModel():
         model.add(tf.keras.layers.Dense(256, activation="relu"))
         model.add(tf.keras.layers.Dropout(0.5))
 
-        model.add(tf.keras.layers.Dense(128, activation="relu"))
-        model.add(tf.keras.layers.Dropout(0.5))
+        #model.add(tf.keras.layers.Dense(128, activation="relu"))
+        #model.add(tf.keras.layers.Dropout(0.5))
 
         model.add(tf.keras.layers.Dense(2, activation="softmax"))
         # ---------------------------------------------------------------------------------------------------------------------------
@@ -323,9 +323,6 @@ def generateModel():
 
 
 
-    #thirdRev()
-
-
     return model
 
 def dataAugmentation():
@@ -546,9 +543,10 @@ def predFromImage(imageToPred, modelNm):
     #                                     color=("green" if predict_index == true_index else "red"))
 ### ----------------- MAIN -------------------
 #epochs = 2000
-if sys.argv[3]:
-    epochs = int(sys.argv[3])
-else:
+try:
+    if sys.argv[3]:
+        epochs = int(sys.argv[3])
+except:
     epochs = 2000
 print("Epochs: " + str(epochs))
 
@@ -594,4 +592,8 @@ if sys.argv[1] == 'predict':
     print(sys.argv[1])
     print(sys.argv[2])
 
-    predFromImage("smiling-makes-you-happy-1.jpg", weightModName)
+    print("Predict image with ground truth happy")
+    predFromImage("happy_person.png", weightModName)
+
+    print("\n\n-- Predict image with ground truth angry --")
+    predFromImage("angry_person.png", weightModName)
