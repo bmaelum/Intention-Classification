@@ -1,3 +1,10 @@
+## --- Created by Bjørnar Kjenaas Mælum ---
+## For the thesis named "Non-Verbal Human-Robot Interaction using Facial Expressions and Head Pose"
+## MSc Robotics at the University of Bristol and University of West of England
+
+## Script for training a Convolutional Neural Network for the detection of Facial Expressions.
+
+## This script is optimized to run on Mac OS X using Python 3.6
 
 import tensorflow as tf
 import numpy as np
@@ -12,8 +19,10 @@ import sys
 img_width, img_height = 48, 48
 
 #top_model_weights_path = 'bottleneck_fc_model.h5'
-train_data_dir = 'data/train'
-validation_data_dir = 'data/validation'
+train_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/train'
+validation_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/validation'
+test_data_dir = '/Users/bjornar/Documents/Intention-Classification/Training_Facial_Expression_Recognition/TrainingData/FER_data/BinaryClassification/test'
+
 batch_size = 128
 
 def generateModel():
@@ -26,9 +35,9 @@ def generateModel():
         model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
         model.add(tf.keras.layers.Dropout(0.5))
 
-        # model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=2, padding="same", activation="relu"))
-        # model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
-        # model.add(tf.keras.layers.Dropout(0.5))
+        model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=2, padding="same", activation="relu"))
+        model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
+        model.add(tf.keras.layers.Dropout(0.5))
 
         model.add(tf.keras.layers.Flatten())
         model.add(tf.keras.layers.Dense(512, activation="relu"))
@@ -37,8 +46,8 @@ def generateModel():
         model.add(tf.keras.layers.Dense(256, activation="relu"))
         model.add(tf.keras.layers.Dropout(0.5))
 
-        model.add(tf.keras.layers.Dense(128, activation="relu"))
-        model.add(tf.keras.layers.Dropout(0.5))
+        #model.add(tf.keras.layers.Dense(128, activation="relu"))
+        #model.add(tf.keras.layers.Dropout(0.5))
 
         model.add(tf.keras.layers.Dense(2, activation="softmax"))
         # ---------------------------------------------------------------------------------------------------------------------------
@@ -321,13 +330,10 @@ def generateModel():
 
 
 
-    #thirdRev()
-
-
     return model
 
 def dataAugmentation():
-    print "Data augmentation..."
+    print("Data augmentation...")
     train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
         rescale=1./255,
         rotation_range=50)
@@ -342,7 +348,8 @@ def dataAugmentation():
           #rotation_range=50)
 
     train_generator = train_datagen.flow_from_directory(
-            '/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/train',
+            train_data_dir,
+            #'/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/train',
             color_mode='grayscale',
             target_size=(48, 48))
             # batch_size=32,
@@ -350,7 +357,8 @@ def dataAugmentation():
             #class_mode='binary')
 
     validation_generator = val_datagen.flow_from_directory(
-            '/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/validation',#,
+            validation_data_dir,
+            #'/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/validation',#,
             color_mode='grayscale',
             target_size=(48, 48))
             # batch_size=32,
@@ -358,7 +366,8 @@ def dataAugmentation():
             #class_mode='binary')
 
     test_generator = test_datagen.flow_from_directory(
-            '/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/test',#,
+            test_data_dir,
+            #'/home/bjornar/MScDissertation/TrainingData/FER_data/BinaryClassification/test',#,
             color_mode='grayscale',
             target_size=(48, 48))
             # batch_size=32,
@@ -366,7 +375,7 @@ def dataAugmentation():
             #class_mode='binary')
 
     classDict = train_generator.class_indices
-    print classDict
+    print(classDict)
 
     return train_generator, validation_generator, test_generator, classDict
 
@@ -404,7 +413,7 @@ def trainModel(epochs, modelname, weightName, txtName): # x_train, y_train, x_te
     # from cStringIO import StringIO
     # old_stdout = sys.stdout
     # sys.stdout = model.summary = StringIO()
-    # print old_stdout
+    # print(old_stdout
 
 
 
@@ -460,17 +469,17 @@ def predict(wName, directoryName):
     # Evaluate the model on test set
     score = model.evaluate_generator(test_gen, 1372/batch_size)
     scoreStr = "Test accuracy = " + str(score[1])
-    print scoreStr
+    print(scoreStr)
 
-    # Print test accuracy
+    # print(test accuracy
     f = open(directoryName, "a")
     f.write(scoreStr)
     f.close()
 
     # y_hat = model.predict(x_test)
 
-    #print "X_TEST TYPE: " + str(type(x_test))
-    #print x_test[0]
+    #print("X_TEST TYPE: " + str(type(x_test))
+    #print(x_test[0]
 
     # # Plot random sample of 10 test images, predicted labels and ground truth
     # figure = plt.figure(figsize=(20,8))
@@ -493,7 +502,7 @@ def predFromImage(imageToPred, modelNm):
     imageToPred = cv2.resize(imageToPred, (48,48))
     imageToPred = np.reshape(imageToPred, (1,48,48,1))
 
-    print imageToPred.shape
+    print(imageToPred.shape)
     model = generateModel()
 
     ## Compile model
@@ -511,9 +520,9 @@ def predFromImage(imageToPred, modelNm):
     # Evaluate the model on test set
     score = model.evaluate_generator(test_gen, 1372/batch_size)
     scoreStr = "Test accuracy = " + str(score[1])
-    print scoreStr
+    print(scoreStr)
 
-    # # Print test accuracy
+    # # print(test accuracy
     # f = open(directoryName, "a")
     # f.write(scoreStr)
     # f.close()
@@ -522,10 +531,10 @@ def predFromImage(imageToPred, modelNm):
     y_hat = model.predict(imageToPred)
     imgClass = model.predict_classes(imageToPred)
     imgProb = model.predict_proba(imageToPred)
-    print "Predicted class: " + str(imgClass)
+    print("Predicted class: " + str(imgClass))
 
-    #print "X_TEST TYPE: " + str(type(x_test))
-    #print x_test[0]
+    #print("X_TEST TYPE: " + str(type(x_test))
+    #print(x_test[0]
 
     # # Plot random sample of 10 test images, predicted labels and ground truth
     # figure = plt.figure(figsize=(20,8))
@@ -540,20 +549,27 @@ def predFromImage(imageToPred, modelNm):
     #                                     exp_labels[true_index]),
     #                                     color=("green" if predict_index == true_index else "red"))
 ### ----------------- MAIN -------------------
-epochs = 2000
-redirectionDirectory = "/home/bjornar/ML_models/FER/"
+#epochs = 2000
+try:
+    if sys.argv[3]:
+        epochs = int(sys.argv[3])
+except:
+    epochs = 2000
+print("Epochs: " + str(epochs))
+
+redirectionDirectory = "/Users/bjornar/ML_models/FER/"
 foldername = "tf_keras_weights_" + sys.argv[2]
 weightModName = redirectionDirectory + foldername + "/" + foldername + ".hdf5"
 modelname = redirectionDirectory + foldername + "tf_keras_model_" + sys.argv[2] + ".hdf5"
-print modelname
+print(modelname)
 txtFile = redirectionDirectory + foldername+"/"+foldername+".txt"
 if sys.argv[1] == 'train':
-    print "----------------------------------------------------------------"
+    print("----------------------------------------------------------------")
     if not os.path.exists(redirectionDirectory + foldername):
         os.makedirs(redirectionDirectory + foldername)
 
     if not os.path.exists(txtFile):
-        print "File does not exist..."
+        print("File does not exist...")
         f = open(txtFile, "w+")
 
     else:
@@ -565,10 +581,10 @@ if sys.argv[1] == 'train':
         os.makedirs(redirectionDirectory + foldername)
 
 
-    print "Training model..."
-    print "Running model with " + sys.argv[2]
+    print("Training model...")
+    print("Running model with " + sys.argv[2])
     model = trainModel(epochs, modelname, weightModName, txtFile)#, xTrain, yTrain, xTest, yTest, xVal, yVal)
-    print "Predicting images..."
+    print("Predicting images...")
     predict(redirectionDirectory + foldername + "/" + foldername + ".hdf5", txtFile)
 
     if not os.path.exists(txtFile):
@@ -578,9 +594,13 @@ if sys.argv[1] == 'train':
     f.write("\n\n----------------------------------------------------------------------------------------------- \n\n")
     f.close()
 
-    print "----------------------------------------------------------------"
+    print("----------------------------------------------------------------")
 if sys.argv[1] == 'predict':
-    print sys.argv[1]
-    print sys.argv[2]
+    print(sys.argv[1])
+    print(sys.argv[2])
 
-    predFromImage("smiling-makes-you-happy-1.jpg", weightModName)
+    print("Predict image with ground truth happy")
+    predFromImage("happy_person.png", weightModName)
+
+    print("\n\n-- Predict image with ground truth angry --")
+    predFromImage("angry_person.png", weightModName)
