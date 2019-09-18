@@ -1,3 +1,10 @@
+## --- Created by Bjørnar Kjenaas Mælum ---
+## For the thesis named "Non-Verbal Human-Robot Interaction using Facial Expressions and Head Pose"
+## MSc Robotics at the University of Bristol and University of West of England
+
+## Script for training a Convolutional Neural Network for the detection of Facial Expressions.
+
+## This script is optimized to run on Mac OS X using Python 3.6
 
 import tensorflow as tf
 import numpy as np
