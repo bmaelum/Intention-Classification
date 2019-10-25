@@ -15,8 +15,8 @@ Working Intention Classification that can run on OS X.
 - [x] Head Pose Estimation working on Ubuntu 16.04 and Python 2.7
 - [x] Head Pose Estimation working on Mac OS X and Python 3 - video
 - [ ] Head Pose Estimation working on Mac OS X and Python 3 - webcam
-- [ ] Training intention classification model on Mac OS X and Python 3
-- [ ] Running intention classification on Mac OS X and Python 3
+- [x] Training intention classification model on Mac OS X and Python 3
+- [x] Running intention classification on Mac OS X and Python 3
 - [ ] Running head pose estimation and intention classification on Mac OS X and Python 3
 
 
