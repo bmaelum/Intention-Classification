@@ -1,6 +1,7 @@
 # Intention Classification 
 ## Master of Science Dissertation 
-Project at the University of Bristol. **Dissertation can be found [here](https://www.dropbox.com/s/4h1am0xqd3xizbv/MSc_Robotics_BjornarMaelum.pdf?dl=0).**
+Project at the University of Bristol. **Dissertation can be found [here] (https://www.dropbox.com/s/4h1am0xqd3xizbv/MSc_Robotics_BjornarMaelum.pdf?dl=0).**  
+Send an email to bjornarmaelum@gmail.com for access to the report.
 
 Video of the experiment described in the dissertation can be seen **[here](https://www.youtube.com/watch?v=XPzJ-hhMpgM&feature=youtu.be)**.
 
