@@ -17,7 +17,7 @@ google-pasta==0.1.7
 graphviz==0.8.4
 grpcio==1.13.0
 h5py==2.8.0
-html5lib==0.9999999
+html5lib==0.99999999
 imutils==0.4.6
 ipython==5.8.0
 ipython-genutils==0.2.0
