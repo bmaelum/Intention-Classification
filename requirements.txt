@@ -29,7 +29,7 @@ Markdown==2.6.11
 matplotlib==2.2.2
 mock==2.0.0
 networkx==2.1
-numpy==1.14.5
+numpy==1.22.0
 opencv-python==4.1.1.26
 pathlib2==2.3.2
 pbr==4.1.0
