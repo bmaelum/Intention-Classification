@@ -64,6 +64,6 @@ Theano==1.0.2
 toolz==0.9.0
 traitlets==4.3.2
 wcwidth==0.1.7
-Werkzeug==0.14.1
+Werkzeug==0.15.5
 wrapt==1.11.2
 zmq==0.0.0
